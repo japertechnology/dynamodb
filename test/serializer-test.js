@@ -279,6 +279,24 @@ describe('Serializer', function () {
       serializer.serializeItem(s, {agree: 0}).should.eql({agree: false});
     });
 
+    it('should preserve falsy values', function () {
+      var config = {
+        hashKey: 'id',
+        schema: {
+          id: Joi.number(),
+          count: Joi.number(),
+          active: Joi.boolean(),
+          name: Joi.string(),
+        }
+      };
+
+      var s = new Schema(config);
+
+      var item = serializer.serializeItem(s, {id: 1, count: 0, active: false, name: ''});
+
+      item.should.eql({id: 1, count: 0, active: false, name: ''});
+    });
+
     it('should serialize date attribute', function () {
       var config = {
         hashKey: 'time',
