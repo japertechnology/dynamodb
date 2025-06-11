@@ -1,14 +1,14 @@
 'use strict';
 
-var dynamo = require('../index'),
-    _      = require('lodash'),
-    util   = require('util'),
-    AWS    = dynamo.AWS,
-    Joi    = require('joi');
+const dynamo = require('../index');
+const _      = require('lodash');
+const util   = require('util');
+const AWS    = dynamo.AWS;
+const Joi    = require('joi');
 
-AWS.config.loadFromPath(process.env.HOME + '/.ec2/credentials.json');
+AWS.config.update({region: 'us-east-1'});
 
-var Account = dynamo.define('Foobar', {
+const Account = dynamo.define('Foobar', {
   hashKey : 'email',
   schema : {
     email   : Joi.string(),

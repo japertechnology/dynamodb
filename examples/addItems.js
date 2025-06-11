@@ -1,13 +1,13 @@
 'use strict';
 
-var dynamo = require('../index'),
-    AWS    = dynamo.AWS,
-    Joi    = require('joi'),
-    async  = require('async');
+const dynamo = require('../index');
+const AWS    = dynamo.AWS;
+const Joi    = require('joi');
+const async  = require('async');
 
-AWS.config.loadFromPath(process.env.HOME + '/.ec2/credentials.json');
+AWS.config.update({region: 'us-east-1'});
 
-var Account = dynamo.define('example-Account', {
+const Account = dynamo.define('example-Account', {
   hashKey : 'AccountId',
   timestamps : true,
   schema : {

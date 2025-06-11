@@ -14,18 +14,20 @@
 
     npm install dynamodb
 
+This library supports **Node.js 10 or later**.
+
 ## Getting Started
 First, you need to configure the [AWS SDK][2] with your credentials.
 
 ```js
-var dynamo = require('dynamodb');
-dynamo.AWS.config.loadFromPath('credentials.json');
+const dynamo = require('dynamodb');
+dynamo.AWS.config.update(require('./credentials.json'));
 ```
 
 When running on EC2 its recommended to leverage EC2 IAM roles. If you have configured your instance to use IAM roles, DynamoDB will automatically select these credentials for use in your application, and you do not need to manually provide credentials in any other format.
 
 ```js
-var dynamo = require('dynamodb');
+const dynamo = require('dynamodb');
 dynamo.AWS.config.update({region: "REGION"}); // region must be set
 ```
 
@@ -33,7 +35,7 @@ You can also directly pass in your access key id, secret and region.
   * Its recommend you not hard-code credentials inside an application. Use this method only for small personal scripts or for testing purposes.
 
 ```js
-var dynamo = require('dynamodb');
+const dynamo = require('dynamodb');
 dynamo.AWS.config.update({accessKeyId: 'AKID', secretAccessKey: 'SECRET', region: "REGION"});
 ```
 

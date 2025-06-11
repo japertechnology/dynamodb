@@ -1,14 +1,14 @@
 'use strict';
 
-var dynamo = require('../index'),
-    async  = require('async'),
-    _      = require('lodash'),
-    AWS    = dynamo.AWS,
-    Joi    = require('joi');
+const dynamo = require('../index');
+const async  = require('async');
+const _      = require('lodash');
+const AWS    = dynamo.AWS;
+const Joi    = require('joi');
 
-AWS.config.loadFromPath(process.env.HOME + '/.ec2/credentials.json');
+AWS.config.update({region: 'us-east-1'});
 
-var Account = dynamo.define('example-batch-get-account', {
+const Account = dynamo.define('example-batch-get-account', {
   hashKey : 'email',
   timestamps : true,
   schema : {
