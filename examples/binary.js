@@ -1,13 +1,13 @@
 'use strict';
 
-var dynamo = require('../index'),
-    fs     = require('fs'),
-    AWS    = dynamo.AWS,
-    Joi    = require('joi');
+const dynamo = require('../index');
+const fs     = require('fs');
+const AWS    = dynamo.AWS;
+const Joi    = require('joi');
 
-AWS.config.loadFromPath(process.env.HOME + '/.ec2/credentials.json');
+AWS.config.update({region: 'us-east-1'});
 
-var BinModel = dynamo.define('example-binary', {
+const BinModel = dynamo.define('example-binary', {
   hashKey : 'name',
   timestamps : true,
   schema : {

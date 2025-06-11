@@ -1,15 +1,15 @@
 'use strict';
 
-var dynamo = require('../index'),
-    AWS    = dynamo.AWS,
-    Joi    = require('joi'),
-    async  = require('async'),
-    util   = require('util'),
-    _      = require('lodash');
+const dynamo = require('../index');
+const AWS    = dynamo.AWS;
+const Joi    = require('joi');
+const async  = require('async');
+const util   = require('util');
+const _      = require('lodash');
 
-AWS.config.loadFromPath(process.env.HOME + '/.ec2/credentials.json');
+AWS.config.update({region: 'us-east-1'});
 
-var DynamicModel = dynamo.define('example-dynamic-key', {
+const DynamicModel = dynamo.define('example-dynamic-key', {
   hashKey    : 'id',
   timestamps : true,
   schema : Joi.object().keys({

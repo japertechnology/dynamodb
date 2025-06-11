@@ -1,14 +1,14 @@
 'use strict';
 
-var dynamo = require('../index'),
-    AWS    = dynamo.AWS,
-    _      = require('lodash'),
-    Joi    = require('joi'),
-    async  = require('async');
+const dynamo = require('../index');
+const AWS    = dynamo.AWS;
+const _      = require('lodash');
+const Joi    = require('joi');
+const async  = require('async');
 
-AWS.config.loadFromPath(process.env.HOME + '/.ec2/credentials.json');
+AWS.config.update({region: 'us-east-1'});
 
-var Product = dynamo.define('example-parallel-scan', {
+const Product = dynamo.define('example-parallel-scan', {
   hashKey : 'id',
   timestamps : true,
   schema : {

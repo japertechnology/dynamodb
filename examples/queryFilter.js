@@ -1,15 +1,15 @@
 'use strict';
 
-var dynamo = require('../index'),
-    util   = require('util'),
-    _      = require('lodash'),
-    Joi    = require('joi'),
-    async  = require('async'),
-    AWS    = dynamo.AWS;
+const dynamo = require('../index');
+const util   = require('util');
+const _      = require('lodash');
+const Joi    = require('joi');
+const async  = require('async');
+const AWS    = dynamo.AWS;
 
-AWS.config.loadFromPath(process.env.HOME + '/.ec2/credentials.json');
+AWS.config.update({region: 'us-east-1'});
 
-var Account = dynamo.define('example-query-filter', {
+const Account = dynamo.define('example-query-filter', {
   hashKey : 'name',
   rangeKey : 'email',
   timestamps : true,

@@ -1,12 +1,12 @@
 'use strict';
 
-var dynamo = require('../index'),
-    Joi    = require('joi'),
-    AWS    = dynamo.AWS;
+const dynamo = require('../index');
+const Joi    = require('joi');
+const AWS    = dynamo.AWS;
 
-AWS.config.loadFromPath(process.env.HOME + '/.ec2/credentials.json');
+AWS.config.update({region: 'us-east-1'});
 
-var Account = dynamo.define('example-model-methods-Account', {
+const Account = dynamo.define('example-model-methods-Account', {
   hashKey : 'email',
   timestamps : true,
   schema : {

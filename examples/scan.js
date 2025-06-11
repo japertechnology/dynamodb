@@ -1,15 +1,15 @@
 'use strict';
 
-var dynamo = require('../index'),
-    util   = require('util'),
-    _      = require('lodash'),
-    AWS    = dynamo.AWS,
-    async  = require('async'),
-    Joi    = require('joi');
+const dynamo = require('../index');
+const util   = require('util');
+const _      = require('lodash');
+const AWS    = dynamo.AWS;
+const async  = require('async');
+const Joi    = require('joi');
 
-AWS.config.loadFromPath(process.env.HOME + '/.ec2/credentials.json');
+AWS.config.update({region: 'us-east-1'});
 
-var Account = dynamo.define('example-scan', {
+const Account = dynamo.define('example-scan', {
   hashKey : 'name',
   rangeKey : 'email',
   timestamps : true,

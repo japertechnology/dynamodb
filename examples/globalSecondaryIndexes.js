@@ -1,11 +1,11 @@
 'use strict';
 
-var dynamo = require('../index'),
-    _      = require('lodash'),
-    util   = require('util'),
-    AWS    = dynamo.AWS,
-    Joi    = require('joi'),
-    async  = require('async');
+const dynamo = require('../index');
+const _      = require('lodash');
+const util   = require('util');
+const AWS    = dynamo.AWS;
+const Joi    = require('joi');
+const async  = require('async');
 
 // AWS.config.loadFromPath(process.env.HOME + '/.ec2/credentials.json');
 
@@ -13,7 +13,7 @@ var dynamo = require('../index'),
 
 AWS.config.update({region : 'us-east-1'});
 
-var GameScore = dynamo.define('example-global-index', {
+const GameScore = dynamo.define('example-global-index', {
   hashKey : 'userId',
   rangeKey : 'gameTitle',
   schema : {
