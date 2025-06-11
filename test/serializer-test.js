@@ -244,6 +244,21 @@ describe('Serializer', function () {
       item.should.eql({age: 0});
     });
 
+    it('should serialize empty string attribute', function () {
+      var config = {
+        hashKey: 'name',
+        schema : {
+          name : Joi.string(),
+        }
+      };
+
+      var s = new Schema(config);
+
+      var item = serializer.serializeItem(s, {name: ''});
+
+      item.should.eql({name: ''});
+    });
+
 
     it('should serialize boolean attribute', function () {
       var config = {
