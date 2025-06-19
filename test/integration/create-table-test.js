@@ -13,8 +13,17 @@ chai.should();
 describe('Create Tables Integration Tests', function() {
   this.timeout(0);
 
-  before(function () {
-    dynamo.dynamoDriver(helper.realDynamoDB());
+  before(function (done) {
+    var self = this;
+    helper.isDynamoAvailable(function (available) {
+      if (!available) {
+        self.skip();
+        return done();
+      }
+
+      dynamo.dynamoDriver(helper.realDynamoDB());
+      done();
+    });
   });
 
   afterEach(function () {
@@ -367,9 +376,16 @@ describe('Update Tables Integration Tests', function() {
   now.description = 'Date.now()';
 
   before(function (done) {
-    dynamo.dynamoDriver(helper.realDynamoDB());
+    var self = this;
+    helper.isDynamoAvailable(function (available) {
+      if (!available) {
+        self.skip();
+        return done();
+      }
 
-    tableName = helper.randomName('dynamo-updateTable-Tweets');
+      dynamo.dynamoDriver(helper.realDynamoDB());
+
+      tableName = helper.randomName('dynamo-updateTable-Tweets');
 
     Tweet = dynamo.define('dynamo-update-table-test', {
       hashKey  : 'UserId',
@@ -379,11 +395,12 @@ describe('Update Tables Integration Tests', function() {
         UserId            : Joi.string(),
         TweetID           : dynamo.types.uuid(),
         content           : Joi.string(),
-        PublishedDateTime : Joi.date().default(now)
+      PublishedDateTime : Joi.date().default(now)
       }
     });
 
-    dynamo.createTables(done);
+      dynamo.createTables(done);
+    });
   });
 
   afterEach(function () {

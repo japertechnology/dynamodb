@@ -74,14 +74,20 @@ describe('DynamoDB Integration Tests', function() {
   this.timeout(0);
 
   before(function (done) {
+    var self = this;
+    helper.isDynamoAvailable(function (available) {
+      if (!available) {
+        self.skip();
+        return done();
+      }
 
-    const generateId = () => uuidv4();
-    generateId.description = 'uuid.v4';
+      const generateId = () => uuidv4();
+      generateId.description = 'uuid.v4';
 
-    const now = () => Date.now();
-    now.description = 'Date.now()';
+      const now = () => Date.now();
+      now.description = 'Date.now()';
 
-    dynamo.dynamoDriver(helper.realDynamoDB());
+      dynamo.dynamoDriver(helper.realDynamoDB());
 
     User = dynamo.define('dynamo-int-test-user', {
       hashKey : 'id',
@@ -157,6 +163,7 @@ describe('DynamoDB Integration Tests', function() {
       },
       internals.loadSeedData
     ], done);
+  });
   });
 
   describe('#create', function () {

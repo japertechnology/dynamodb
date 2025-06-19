@@ -106,3 +106,23 @@ exports.testLogger = function() {
     level : bunyan.FATAL
   });
 };
+
+const net = require('net');
+
+exports.isDynamoAvailable = function(callback) {
+  var socket = net.connect({host: 'localhost', port: 8000});
+  var called = false;
+
+  socket.on('connect', function() {
+    called = true;
+    socket.end();
+    callback(true);
+  });
+
+  socket.on('error', function() {
+    if (!called) {
+      called = true;
+      callback(false);
+    }
+  });
+};
